@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -41,6 +42,13 @@ public class Main {
                 .filter(a->a.getWeight()>150)
                 .collect(Collectors.toList());
 
+        //匿名类（不用创建很多只用实例化一次的类）
+        List<Apple> greenApples2 = FilterApples.filterApples(apples,new Predicate<Apple>(){
+            public boolean test(Apple apple){
+                return "green".equals(apple.getColor());
+            }
+        });
 
+        apples.sort((a,b)->a.getWeight().compareTo(b.getWeight()));
     }
 }

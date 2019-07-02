@@ -12,7 +12,7 @@ public class Apple {
 
     private String color;
 
-    public int getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
@@ -20,7 +20,7 @@ public class Apple {
         this.weight = weight;
     }
 
-    private int weight;
+    private Integer weight;
 
     public Apple(String color,int weight){
         this.color = color;
