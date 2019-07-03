@@ -4,6 +4,7 @@ import transfercode.FilterApples;
 
 import java.io.File;
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,14 @@ public class Main {
         apples.add(new Apple("green",120));
         apples.add(new Apple("green",200));
 
+        //匿名类（不用创建很多只用实例化一次的类）
+        List<Apple> greenApples2 = FilterApples.filterApples(apples, new Predicate<Apple>() {
+            @Override
+            public boolean test(Apple apple) {
+                return "green".equals(apple.getColor());
+            }
+        });
+
         //方法引用（相当于C#中将方法绑定到同类型委托）
         List<Apple> greenApples = FilterApples.filterApples(apples,Apple::isGreenApple);
         List<Apple> heavyApples = FilterApples.filterApples(apples,Apple::isHeavyApple);
@@ -38,13 +47,6 @@ public class Main {
         List<Apple> streamApples = apples.stream()
                 .filter(a->a.getWeight()>150)
                 .collect(Collectors.toList());
-
-        //匿名类（不用创建很多只用实例化一次的类）
-        List<Apple> greenApples2 = FilterApples.filterApples(apples,new Predicate<Apple>(){
-            public boolean test(Apple apple){
-                return "green".equals(apple.getColor());
-            }
-        });
 
         apples.sort((a,b)->a.getWeight().compareTo(b.getWeight()));
         //方法引用
@@ -65,6 +67,16 @@ public class Main {
         Predicate<Apple> redAndHeavyOrGreenApple = redApple.and(apple -> apple.getWeight()>150)
                 .or(apple -> "green".equals(apple.getColor()));
         List<Apple> redAndHeavyOrGreenApples = FilterApples.filterApples(apples,redAndHeavyOrGreenApple);
+
+        //函数复合
+        Function<Integer,Integer> f = x -> x+1;
+        Function<Integer,Integer> g = x -> x*2;
+
+        Function<Integer,Integer> h = f.andThen(g);
+        int result = h.apply(1); //4
+
+        Function<Integer,Integer> h1 = f.compose(g);
+        int result1 = h1.apply(1); //3
 
     }
 }
