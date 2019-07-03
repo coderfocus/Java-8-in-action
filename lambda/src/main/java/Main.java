@@ -3,10 +3,7 @@ import transfercode.Apple;
 import transfercode.FilterApples;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -50,5 +47,24 @@ public class Main {
         });
 
         apples.sort((a,b)->a.getWeight().compareTo(b.getWeight()));
+        //方法引用
+        apples.sort(Comparator.comparing(Apple::getWeight));
+
+        //比较器复合
+        Comparator<Apple> comparator = (a,b)->a.getWeight().compareTo(b.getWeight());
+        Comparator<Apple> reComparator = comparator.reversed();
+        Comparator<Apple> thenComparator = reComparator.thenComparing(Apple::getColor);
+
+        apples.sort(Comparator.comparing(Apple::getWeight).reversed().thenComparing(Apple::getColor)) ;
+
+
+        //谓词符合 and 和 or 从左到右确定优先级
+        Predicate<Apple> redApple = apple -> "red".equals(apple.getColor());
+        Predicate<Apple> notRedApple = redApple.negate();
+        Predicate<Apple> redAndHeavyApple = redApple.and(apple -> apple.getWeight()>150);
+        Predicate<Apple> redAndHeavyOrGreenApple = redApple.and(apple -> apple.getWeight()>150)
+                .or(apple -> "green".equals(apple.getColor()));
+        List<Apple> redAndHeavyOrGreenApples = FilterApples.filterApples(apples,redAndHeavyOrGreenApple);
+
     }
 }
