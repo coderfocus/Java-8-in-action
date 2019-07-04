@@ -3,6 +3,7 @@ package stream;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -58,6 +59,12 @@ public class DashStream {
         boolean isHealthy =  menu().stream().allMatch(d->d.getCalories() < 1000);
         //没有任何匹配元素
         isHealthy = menu().stream().noneMatch(d->d.getCalories() >= 1000);
+
+        //查找 findAny findFirst
+        menu().stream()
+                .filter(Dish::isVegetarian)
+                .findAny()
+                .ifPresent(d -> System.out.println(d.getName()));
     }
 
 }
