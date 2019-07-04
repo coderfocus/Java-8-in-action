@@ -80,6 +80,7 @@ public class Main {
         int result1 = h1.apply(1); //3
 
 
-        DashStream.operate();
+//        DashStream.operate();
+        DashStream.collect();
     }
 }

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
+import static java.util.stream.Collectors.*;
 
 public class DashStream {
     private static List<Dish> menu(){
@@ -141,6 +142,35 @@ public class DashStream {
         Stream.generate(Math::random)
                 .limit(5)
                 .forEach(System.out::println);
+    }
+
+    public static void collect(){
+        //计数
+        long howManyDishes = menu().stream().count();
+        howManyDishes = menu().stream().collect(counting());
+
+        //最大值
+        Optional<Dish> maxCaloriesDish = menu().stream()
+                .collect(maxBy(Comparator.comparing(Dish::getCalories)));
+        //最小值
+        Optional<Dish> minCaloriesDish = menu().stream()
+                .collect(minBy(Comparator.comparing(Dish::getCalories)));
+
+        //汇总求和
+        int totalCalories = menu().stream()
+                .collect(summingInt(Dish::getCalories));
+
+        totalCalories = menu().stream()
+                .map(d -> d.getCalories())
+                .reduce(0,(a,b)->a+b);
+        //平均数
+        double avgCalories = menu().stream()
+                .collect(averagingInt(Dish::getCalories));
+
+        //一次操作
+        IntSummaryStatistics calories = menu().stream()
+                .collect(summarizingInt(Dish::getCalories));
+        System.out.println(calories);
     }
 
 }
