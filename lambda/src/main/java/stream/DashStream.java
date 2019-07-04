@@ -1,5 +1,6 @@
 package stream;
 
+import com.sun.javafx.collections.MappingChange;
 import transfercode.Apple;
 
 import java.util.*;
@@ -24,6 +25,7 @@ public class DashStream {
         );
         return menu;
     }
+    public enum CaloricLevel{DIEF,NORMAL,FAT}
 
     public static void operate(){
         List<String> threeHighCaloricDishNames = menu().stream()
@@ -180,6 +182,37 @@ public class DashStream {
         menuName = menu().stream()
                 .map(Dish::getName)
                 .collect(joining(","));
+
+        //分组
+        Map<Dish.Type,List<Dish>> dishesByType = menu().stream()
+                .collect(groupingBy(Dish::getType));
+        System.out.println(dishesByType);
+
+        Map<CaloricLevel,List<Dish>> dishesByLevel = menu().stream()
+                .collect(groupingBy(
+                        dish ->{
+                            if(dish.getCalories() <= 400){
+                                return CaloricLevel.DIEF;
+                            }
+                            if(dish.getCalories() <= 700){
+                                return CaloricLevel.NORMAL;
+                            }
+                            return CaloricLevel.FAT;
+                        }
+                ));
+        System.out.println(dishesByLevel);
+
+        Map<Dish.Type,Map<CaloricLevel,List<Dish>>> dishesByTypeAndLevel = menu().stream()
+                .collect(groupingBy(Dish::getType,groupingBy(dish ->{
+                    if(dish.getCalories() <= 400){
+                        return CaloricLevel.DIEF;
+                    }
+                    if(dish.getCalories() <= 700){
+                        return CaloricLevel.NORMAL;
+                    }
+                    return CaloricLevel.FAT;
+                })));
+        System.out.println(dishesByTypeAndLevel);
     }
 
 }
