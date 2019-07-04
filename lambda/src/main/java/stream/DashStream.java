@@ -126,6 +126,21 @@ public class DashStream {
         count = IntStream.rangeClosed(1,100)
                 .filter(n -> n % 2 == 0)
                 .count();
+
+        //函数生成流：创建无限流
+        //1.迭代
+        Stream.iterate(0,n->n+2)
+                .limit(10)
+                .forEach(System.out::println);
+        //生成斐波那契数
+        Stream.iterate(new int[]{0,1},t->new int[]{t[1],t[0]+t[1]})
+                .limit(10)
+                .map(t->t[0])
+                .forEach(System.out::println);
+        //2.生成
+        Stream.generate(Math::random)
+                .limit(5)
+                .forEach(System.out::println);
     }
 
 }
