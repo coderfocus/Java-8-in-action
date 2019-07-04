@@ -213,6 +213,28 @@ public class DashStream {
                     return CaloricLevel.FAT;
                 })));
         System.out.println(dishesByTypeAndLevel);
+
+        //分组计数
+        Map<Dish.Type,Long> dishesByTypeCount = menu().stream()
+                .collect(groupingBy(Dish::getType,counting()));
+        System.out.println(dishesByTypeCount);
+
+        Map<Dish.Type,Map<CaloricLevel,Long>> dishesByTypeAndLevelCount = menu().stream()
+                .collect(groupingBy(Dish::getType,groupingBy(dish ->{
+                    if(dish.getCalories() <= 400){
+                        return CaloricLevel.DIEF;
+                    }
+                    if(dish.getCalories() <= 700){
+                        return CaloricLevel.NORMAL;
+                    }
+                    return CaloricLevel.FAT;
+                },counting())));
+        System.out.println(dishesByTypeAndLevelCount);
+
+        //分组最大值
+        Map<Dish.Type,Optional<Dish>> mostDishesByType = menu().stream()
+                .collect(groupingBy(Dish::getType,maxBy(Comparator.comparingInt(Dish::getCalories))));
+        System.out.println(mostDishesByType);
     }
 
 }
