@@ -171,6 +171,15 @@ public class DashStream {
         IntSummaryStatistics calories = menu().stream()
                 .collect(summarizingInt(Dish::getCalories));
         System.out.println(calories);
+
+        //连接字符串
+        String menuName = menu().stream()
+                .map(Dish::getName)
+                .collect(joining());
+        //连接字符串（可读性更好）
+        menuName = menu().stream()
+                .map(Dish::getName)
+                .collect(joining(","));
     }
 
 }
