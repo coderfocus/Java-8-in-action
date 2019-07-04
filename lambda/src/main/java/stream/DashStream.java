@@ -1,5 +1,7 @@
 package stream;
 
+import transfercode.Apple;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -67,6 +69,7 @@ public class DashStream {
                 .ifPresent(d -> System.out.println(d.getName()));
 
         //归约
+        //求和
         //有默认值
         List<Integer> nums = Arrays.asList(1,2,3,4,5);
         int sum = nums.stream().reduce(0,(a,b)->a+b);//15
@@ -74,6 +77,15 @@ public class DashStream {
         List<Integer> noneNums = Arrays.asList();
         Optional<Integer> noneDefaultSum = noneNums.stream().reduce((a,b)->a+b);
         boolean isPresent = noneDefaultSum.isPresent();//false
+
+        //最大值 最小值
+        int max = nums.stream().reduce(0,Integer::max);
+        Optional<Integer> min = nums.stream().reduce(Integer::min);
+        max = nums.stream().reduce(0,(x,y)->x>y?x:y);
+        min = nums.stream().reduce((x,y)->x<y?x:y);
+
+        Optional<Dish> maxDish = menu().stream().max(Comparator.comparing(Dish::getCalories));
+        Optional<Dish> minDish = menu().stream().min(Comparator.comparing(Dish::getCalories));
     }
 
 }
