@@ -39,6 +39,17 @@ public class DashStream {
                 .skip(2)
                 .collect(Collectors.toList());
         System.out.println(dishes);
+
+        //映射
+        //流的扁平化 flatMap方法让你把一个流中的每一个值都换成另一个流，然后把所有的流连接起来成为一个流
+        String[] words = {"hello","world"};
+        List<String> uniqueChars = Arrays.stream(words)
+                .map(w->w.split(""))
+                .flatMap(Arrays::stream)
+                //Stream<String[]> => Stream<String>
+                .distinct()
+                .collect(Collectors.toList());
+        System.out.println(uniqueChars);
     }
 
 }
