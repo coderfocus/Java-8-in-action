@@ -65,6 +65,15 @@ public class DashStream {
                 .filter(Dish::isVegetarian)
                 .findAny()
                 .ifPresent(d -> System.out.println(d.getName()));
+
+        //归约
+        //有默认值
+        List<Integer> nums = Arrays.asList(1,2,3,4,5);
+        int sum = nums.stream().reduce(0,(a,b)->a+b);//15
+        //无默认值
+        List<Integer> noneNums = Arrays.asList();
+        Optional<Integer> noneDefaultSum = noneNums.stream().reduce((a,b)->a+b);
+        boolean isPresent = noneDefaultSum.isPresent();//false
     }
 
 }
