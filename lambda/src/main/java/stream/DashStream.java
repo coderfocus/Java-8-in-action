@@ -4,6 +4,8 @@ import transfercode.Apple;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 public class DashStream {
@@ -95,6 +97,35 @@ public class DashStream {
         String nameStr = names.stream()
                 .collect(Collectors.joining());
         System.out.println(nameStr);
+
+        //数值流
+        sum = menu().stream()
+                .mapToInt(Dish::getCalories)
+                .sum();
+        //装换为对象流
+        Stream<Integer> stream = menu().stream()
+                .mapToInt(Dish::getCalories)
+                .boxed();
+        //最大值默认值 区分最大值是0的流还是没有元素的流
+        OptionalInt maxCalories = menu().stream()
+                .mapToInt(Dish::getCalories)
+                .max();
+        max = maxCalories.orElse(1);
+
+        //最小值默认值 区分最小值是0的流还是没有元素的流
+        OptionalInt minCalories = menu().stream()
+                .mapToInt(Dish::getCalories)
+                .min();
+        int min1 = minCalories.orElse(1);
+
+        //数值范围
+        long count = IntStream.range(1,100)
+                .filter(n -> n % 2 == 0)
+                .count();
+
+        count = IntStream.rangeClosed(1,100)
+                .filter(n -> n % 2 == 0)
+                .count();
     }
 
 }
