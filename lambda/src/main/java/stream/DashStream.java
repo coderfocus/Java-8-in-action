@@ -50,6 +50,14 @@ public class DashStream {
                 .distinct()
                 .collect(Collectors.toList());
         System.out.println(uniqueChars);
+
+        //匹配 anyMatch allMatch noneMatch
+        //至少匹配一个元素
+        boolean isVegetarian =  menu().stream().anyMatch(Dish::isVegetarian);
+        //匹配所有元素
+        boolean isHealthy =  menu().stream().allMatch(d->d.getCalories() < 1000);
+        //没有任何匹配元素
+        isHealthy = menu().stream().noneMatch(d->d.getCalories() >= 1000);
     }
 
 }
