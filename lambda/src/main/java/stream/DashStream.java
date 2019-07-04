@@ -2,10 +2,7 @@ package stream;
 
 import transfercode.Apple;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -86,6 +83,13 @@ public class DashStream {
 
         Optional<Dish> maxDish = menu().stream().max(Comparator.comparing(Dish::getCalories));
         Optional<Dish> minDish = menu().stream().min(Comparator.comparing(Dish::getCalories));
+
+
+        //使用collect(Collectors.toSet())替代distinct()去除重复值
+        List<String> names = Arrays.asList("song","wen","jie","song","wen","jie");
+        Set<String> noneRepeatNames = names.stream()
+                .collect(Collectors.toSet());
+        System.out.println(noneRepeatNames);
     }
 
 }
