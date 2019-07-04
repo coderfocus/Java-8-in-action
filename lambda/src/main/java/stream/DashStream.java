@@ -90,6 +90,11 @@ public class DashStream {
         Set<String> noneRepeatNames = names.stream()
                 .collect(Collectors.toSet());
         System.out.println(noneRepeatNames);
+
+        //使用collect(Collectors.joining())替代reduce("",(n1,n2)->n1+n2)拼接字符串
+        String nameStr = names.stream()
+                .collect(Collectors.joining());
+        System.out.println(nameStr);
     }
 
 }
