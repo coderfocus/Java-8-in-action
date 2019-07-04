@@ -235,6 +235,17 @@ public class DashStream {
         Map<Dish.Type,Optional<Dish>> mostDishesByType = menu().stream()
                 .collect(groupingBy(Dish::getType,maxBy(Comparator.comparingInt(Dish::getCalories))));
         System.out.println(mostDishesByType);
+
+        Map<Dish.Type,Dish> dishNamesByType = menu().stream()
+                .collect(groupingBy(Dish::getType,collectingAndThen(maxBy(Comparator.comparingInt(Dish::getCalories)),Optional::get)));
+        System.out.println(dishNamesByType);
+
+        //类型装换
+        Map<Dish.Type,List<String>> dishNamesByType1 = menu().stream()
+                .collect(groupingBy(Dish::getType,mapping(Dish::getName,toList())));
+        System.out.println(dishNamesByType1);
+
+
     }
 
 }
