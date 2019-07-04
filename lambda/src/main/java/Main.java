@@ -1,4 +1,5 @@
 
+import stream.DashStream;
 import transfercode.Apple;
 import transfercode.FilterApples;
 
@@ -78,5 +79,7 @@ public class Main {
         Function<Integer,Integer> h1 = f.compose(g);
         int result1 = h1.apply(1); //3
 
+
+        DashStream.operate();
     }
 }
