@@ -30,7 +30,15 @@ public class DashStream {
                 .collect(Collectors.toList());
         System.out.println(threeHighCaloricDishNames);
 
-        menu().stream().forEach(System.out::println);
+//        menu().stream().forEach(System.out::println);
+
+        //筛选 filter distinct limit skip
+        //skip(n) 如果流中元素不足n个，则返回一个空流
+        List<Dish> dishes = menu().stream()
+                .filter(d->d.getCalories()>700)
+                .skip(2)
+                .collect(Collectors.toList());
+        System.out.println(dishes);
     }
 
 }
