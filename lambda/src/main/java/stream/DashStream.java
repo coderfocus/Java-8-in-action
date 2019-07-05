@@ -240,11 +240,14 @@ public class DashStream {
                 .collect(groupingBy(Dish::getType,collectingAndThen(maxBy(Comparator.comparingInt(Dish::getCalories)),Optional::get)));
         System.out.println(dishNamesByType);
 
-        //类型装换
+        //分组类型装换
         Map<Dish.Type,List<String>> dishNamesByType1 = menu().stream()
                 .collect(groupingBy(Dish::getType,mapping(Dish::getName,toList())));
         System.out.println(dishNamesByType1);
-
+        //分区
+        Map<Boolean,List<String>> vegetarianDishes = menu().stream()
+                .collect(partitioningBy(Dish::isVegetarian,mapping(Dish::getName,toList())));
+        System.out.println(vegetarianDishes);
 
     }
 
