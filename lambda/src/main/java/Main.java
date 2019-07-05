@@ -1,5 +1,5 @@
 
-import stream.DashStream;
+import stream.DishStream;
 import transfercode.Apple;
 import transfercode.FilterApples;
 
@@ -81,6 +81,7 @@ public class Main {
 
 
 //        DashStream.operate();
-        DashStream.collect();
+//        DashStream.collect();
+        DishStream.parallel();
     }
 }

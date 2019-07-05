@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import static java.util.stream.Collectors.*;
 
-public class DashStream {
+public class DishStream {
     private static List<Dish> menu(){
         List<Dish> menu = Arrays.asList(
                 new Dish("pork",false,800, Dish.Type.MEAT),
@@ -248,6 +248,14 @@ public class DashStream {
         Map<Boolean,List<String>> vegetarianDishes = menu().stream()
                 .collect(partitioningBy(Dish::isVegetarian,mapping(Dish::getName,toList())));
         System.out.println(vegetarianDishes);
+
+    }
+
+    public static void parallel(){
+        //并行流默认线程数量，默认为处理器数量
+        int processors = Runtime.getRuntime().availableProcessors();
+        System.out.println(processors);//8
+
 
     }
 
